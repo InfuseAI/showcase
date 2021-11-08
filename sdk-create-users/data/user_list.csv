@@ -1,0 +1,4 @@
+username,email,firstName,lastName,volumeCapacity,isAdmin,sendEmail
+example_1,example_1@example.com,first,Test1,1,TRUE,FALSE
+example_2,example_2@example.com,second,Test2,1,FALSE,FALSE
+example_3,example_3@example.com,third,Test3,1,FALSE,FALSE
