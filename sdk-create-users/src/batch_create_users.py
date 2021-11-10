@@ -16,16 +16,16 @@ class BatchCreateUsers:
             print("PrimeHub Python SDK setup successfully.")
         else:
             self.ph.config.generate(primehub_cluster_url)
-    
+
     def batch_create_users(self, file_path):
         config_list = self._arrange_primehub_users(file_path)
         self._create_users(config_list)
         print("Finish creating users. Please check in PrimeHub admin portal.")
-    
+
     def _arrange_primehub_users(self, file_path):
         config_list = []
         df = pd.read_csv(file_path)
-        df.isAdmin = df.isAdmin.astype('bool')
+        df.isAdmin = df.isAdmin.astype("bool")
         config_list = json.loads(df.to_json(orient="records"))
         return config_list
 
