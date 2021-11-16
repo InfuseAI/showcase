@@ -1,0 +1,6 @@
+{
+  "instanceType": "cpu-1",
+  "image": "tf-2",
+  "displayName": "iris-model-training",
+  "command": "git clone https://github.com/InfuseAI/showcase.git && cd ./showcase/primehub-sdk-ct-pipeline && pip install -r requirements.txt && python main.py"
+}

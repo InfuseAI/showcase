@@ -1,0 +1,48 @@
+variables:
+	DOCKER_NAME: $CI_PROJECT_NAME
+  IMAGE_PYTEST_NAME: <pytest-images-path>
+  PRIMEHUB_IMAGE_NAME: <primehub-images-path>
+
+services:
+  - name: docker:dind
+
+stages:
+  - code-test
+  - training
+  - production
+
+unittest:
+  stage: code-test
+  script:
+    - docker run -u root 
+                 -v "$PWD":/home/app/workdir
+                 -w /home/app/workdir
+                 -e PROJECT_PATH=/home/app/workdir
+                 --name $DOCKER_NAME $IMAGE_PYTEST_NAME /bin/bash 
+                 -c "export PYTHONPATH=/home/app/workdir && pip3 install -r requirements-test.txt && pytest -q -p no:warnings --cov-config=tests/.coveragerc --cov=. --cov-report term-missing -o log_cli=true --capture=no tests/"
+  tags:
+    - dind
+
+model_training:
+	stage: training
+	script:
+    - docker run -u root
+                 -v "$PWD/deployment/config":/root/.primehub/
+                 --name $DOCKER_NAME $PRIMEHUB_IMAGE_NAME 
+                 -c "primehub jobs submit --file /root/.primehub/model_training.yaml --config /root/.primehub/config.json"  
+  only:
+    - develop
+  tags:
+    - dind
+
+model_deployment:
+	stage: production
+	script:
+    - docker run -u root
+                 -v "$PWD/deployment/config":/root/.primehub/
+                 --name $DOCKER_NAME $PRIMEHUB_IMAGE_NAME 
+                 -c "primehub deployments create --file /root/.primehub/model_deployment.yaml --config /root/.primehub/config.json"  
+  only:
+    - master
+  tags:
+    - dind
