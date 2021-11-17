@@ -1,0 +1,8 @@
+{
+    "id": "iris-model",
+    "name": "Iris model",
+    "modelImage": "infuseai/sklearn-prepackaged:v0.1.0",
+    "modelURI": "models:/iris-model/1",
+    "instanceType": "cpu-1",
+    "replicas": 1
+}
