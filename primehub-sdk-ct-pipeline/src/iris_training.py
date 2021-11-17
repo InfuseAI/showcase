@@ -1,5 +1,4 @@
 import mlflow
-import numpy as np
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -27,7 +26,9 @@ class IrisTraining:
         y_pred = self.data_predict(self.data["x_test"])
         self.data_evaluation(self.data["y_test"], y_pred)
         print("Finish data evaluation.")
-        self.registry_model("{}/model/".format(self.run.info.artifact_uri), self.run.info.run_id)
+        self.registry_model(
+            "{}/model/".format(self.run.info.artifact_uri), self.run.info.run_id
+        )
 
     def data_extract(self):
         self.df = datasets.load_iris()
@@ -35,7 +36,9 @@ class IrisTraining:
     def data_transform(self):
         X = self.df.data
         y = self.df.target
-        X_train, X_test, self.data["y_train"], self.data["y_test"] = train_test_split(X, y, test_size=0.3, random_state=0)
+        X_train, X_test, self.data["y_train"], self.data["y_test"] = train_test_split(
+            X, y, test_size=0.3, random_state=0
+        )
         sc = StandardScaler()
         sc.fit(X_train)
         self.data["x_train"] = sc.transform(X_train)
@@ -51,8 +54,8 @@ class IrisTraining:
         return y_pred
 
     def data_evaluation(self, y_test, y_pred):
-        print ('Accuracy: {}'.format(accuracy_score(y_test, y_pred)))
-    
+        print("Accuracy: {}".format(accuracy_score(y_test, y_pred)))
+
     def registry_model(self, model_path, model_run_id):
         registry_name = "iris-model"
         try:
@@ -61,9 +64,7 @@ class IrisTraining:
             print("You are already create the registry model.")
 
         result = self.client.create_model_version(
-            name=registry_name,
-            source=model_path,
-            run_id=model_run_id
+            name=registry_name, source=model_path, run_id=model_run_id
         )
         print("Status: {}.".format(result.status))
         print("Version: {}.".format(result.version))
