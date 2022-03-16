@@ -1,0 +1,4 @@
+seldon-core==1.6.0
+numpy
+tensorflow==2.4.0
+Pillow
