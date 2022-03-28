@@ -1,0 +1,7 @@
+{
+    "model_cfg": "yolov4.cfg",
+    "label_data": "coco.data",
+    "model_weight": "yolov4.weights",
+    "batch_size": 1,
+    "model_threshold": 0.6
+}
