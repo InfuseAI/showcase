@@ -1,0 +1,2 @@
+seldon-core==1.13.1
+transformers[tf-cpu]==4.17.0
