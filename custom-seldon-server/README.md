@@ -1,4 +1,4 @@
-# Pycaret Classification Showcase
+# Custom seldon server
 
 ## Prerequisites
 
@@ -14,6 +14,7 @@
 2. pytorch
 3. sklearn
 4. huggingface
+5. base
 
 - Build docker images
 ```bash
