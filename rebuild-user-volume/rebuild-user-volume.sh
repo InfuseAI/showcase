@@ -122,9 +122,7 @@ pvc_mount_status
 echo "=== pvc mount status ==="
 echo "PVC mount status: $PVC_MOUNT_STATUS"
 
-if [ $K8S_VERSION == "unsupported" ]; then
-  echo "[ERROR] Unsupported kubectl version."
-elif [ $(command -v jq) == "" ]; then
+if [ $(command -v jq) == "" ]; then
   echo "[ERROR] Please install jq linux package."
 elif [ -z $PV_NAME ]; then
   echo "[ERROR] The username is not correct. Please check the username: $USERNAME"
