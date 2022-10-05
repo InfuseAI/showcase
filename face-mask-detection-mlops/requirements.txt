@@ -1,0 +1,6 @@
+metaflow==2.7.12
+primehub-python-sdk==0.3.8
+kaggle==1.5.12
+opencv-python==4.5.3.56
+tensorflow==2.5.0
+mlflow==1.18.0
